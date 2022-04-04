@@ -1,22 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-
+import ContactBook from '../views/ContactBook.vue'
+import NotFound from '../views/NotFound.vue'
+import ContactEdit from '../views/ContactEdit.vue'
+import ContactAdd from '../views/ContactAdd.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: "/",
+        name: "contactbook",
+        component: ContactBook,
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
+      path: "/:pathMatch(.*)*",
+      name: "notfound",
+      component: NotFound,
+    },
+    {
+      path: "/contacts/:id",
+      name: "contact.edit",
+      component: ContactEdit,
+      props: true // Truyền các biến trong $route.params vào làm props
+    },
+    {
+      path: "/contacts",
+      name: "contact.add",
+      component: ContactAdd,
+    },
   ]
 })
 
